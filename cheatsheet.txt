@@ -1,0 +1,68 @@
+// insert command
+db.posts.insert({
+    title:'Post One',
+    body:'Body of post one',
+    category:'News',
+    likes:4,
+    tags:['news','events'],
+    user:{
+        name:'John Doe',
+        status:'author'
+    },
+    date:Date()
+})
+
+//insertMany command
+db.posts.insertMany()
+// Find command
+db.posts.find()
+
+//Find command with pretty function
+db.posts.find().pretty()
+
+//Sort command 
+db.posts.find().sort({title:1}).pretty() // 1 for ASC -1 for DSC
+
+//Count command
+db.posts.find({category:'News'}).count()
+
+//Limit command
+db.posts.find().limit(2)
+
+//ForEach Loop
+db.posts.find().forEach(function(doc){print('Blog Post'+doc.title)})
+
+//ForEach Loop using arrow function
+db.posts.find().forEach(doc => print('Blog Post'+doc.id))
+
+//FindOne command
+db.posts.findOne()
+
+//Update command
+db.posts.update({title:'Post Five'},{
+    body:"New Post Two"
+})
+
+//Update command with upsert upsert means if the title is not found insert the record
+db.posts.update({title:'Post Five'},{
+    body:"New Post Two"
+},{upsert:true})
+
+//update command with $set operator $set  operator is used to insert new property in an existing object
+db.posts.update({title:'Post Three'},{
+    $set:{
+        likes:5,
+        category:'News and Technology',
+        post:'Developer',
+        language:'JS'
+    }
+})
+//update command with $inc operator $inc operator is used to increment the integer value in a property of an existing object
+db.posts.update({title:'Post Three'},{$inc:{likes:5}})
+
+//update command with $rename operator $rename operator is used to rename the key of the object
+db.posts.update({title:"Post Three"},{$rename:{likes:'views'}})
+
+//Remove the document
+db.posts.remove({title:'Post Four'})
+
